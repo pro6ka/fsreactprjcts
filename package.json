@@ -1,0 +1,13 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "node backend",
+    "author": "Mikhail Prokhorov <proch-m@yandex.ru>",
+    "main": "service.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.18.1"
+    }
+}
