@@ -1,0 +1,95 @@
+version: "3.1"
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    container_name: api
+    image: pro6ka/api:1.0.0
+    restart: unless-stopped
+      # restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MONGO_USERNAME=$MONGO_USERNAME
+      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_HOSTNAME=$MONGO_HOSTNAME
+      - MONGO_PORT=$MONGO_PORT
+      - MONGO_DB=$MONGO_DB
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./api:/home/node/app
+    depends_on:
+      - mongodb
+    networks:
+      - backend
+      - frontend
+    command: ./wait-for.sh mongodb:27017 -- /home/node/app/node_modules/.bin/nodemon app.js
+  client:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    container_name: client
+    image: pro6ka/client:1.0.0
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/usr/src/app/client
+    depends_on:
+      - api
+    networks:
+      - frontend
+  mongodb:
+    image: mongo:5
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
+      TZ: "Europe/Moscow"
+      MONGO_INITDB_DATABASE: $MONGO_DB
+    volumes:
+      - ./db/data:/data/db
+      - ./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - backend
+  mongo-express:
+    links:
+      - mongodb
+    container_name: mongo-express
+    image: mongo-express
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_OPTIONS_EDITORTHEME: 3024-night
+      ME_CONFIG_BASICAUTH_USERNAME: $ME_CONFIG_BASICAUTH_USERNAME
+      ME_CONFIG_BASICAUTH_PASSWORD: $ME_CONFIG_BASICAUTH_PASSWORD
+      ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGO_USERNAME
+      ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGO_PASSWORD
+      ME_CONFIG_MONGODB_URL: mongodb://$MONGO_USERNAME:$MONGO_PASSWORD@mongodb:$MONGO_PORT/?authSource=admin
+    networks:
+      - backend
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile
+    container_name: nginx
+    ports:
+      - 80:80
+    restart: unless-stopped
+    networks:
+      - backend
+      - frontend
+volumes:
+  db:
+networks:
+  backend:
+  frontend:
+

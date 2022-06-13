@@ -1,0 +1,6 @@
+api/node_modules
+api/npm-debug.log
+db/data
+.env
+secret.yaml
+.idea

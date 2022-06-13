@@ -1,0 +1,19 @@
+{
+    "name": "nodejs-image-demo",
+    "version": "1.0.0",
+    "description": "nodejs image demo",
+    "author": "Mikhail Prokhorov <pro6ka@gmail.com>",
+    "license": "MIT",
+    "main": "app.js",
+    "keyworkds": [
+        "nodejs",
+        "bootstrap",
+        "express"
+    ],
+    "dependencies": {
+        "ejs": "^3.1.8",
+        "express": "^4.18.1",
+        "mongoose": "^6.3.5",
+        "nodemon": "^2.0.16"
+    }
+}
