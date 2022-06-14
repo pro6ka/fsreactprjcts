@@ -5,7 +5,7 @@ services:
     build:
       context: ./api
       dockerfile: ./Dockerfile
-    container_name: api
+    container_name: simplesetup_api
     image: pro6ka/api:1.0.0
     restart: unless-stopped
       # restart: unless-stopped
@@ -30,7 +30,7 @@ services:
     build:
       context: ./client
       dockerfile: ./Dockerfile
-    container_name: client
+    container_name: simplesetup_client
     image: pro6ka/client:1.0.0
     restart: unless-stopped
     env_file: ./.env
@@ -44,7 +44,7 @@ services:
       - frontend
   mongodb:
     image: mongo:5
-    container_name: mongodb
+    container_name: simplesetup_mongodb
     restart: always
     ports:
       - 27017:27017
@@ -61,7 +61,7 @@ services:
   mongo-express:
     links:
       - mongodb
-    container_name: mongo-express
+    container_name: simplesetup_mongo-express
     image: mongo-express
     restart: unless-stopped
     ports:
@@ -80,7 +80,7 @@ services:
     build:
       context: ./nginx
       dockerfile: ./Dockerfile
-    container_name: nginx
+    container_name: simplesetup_nginx
     ports:
       - 80:80
     restart: unless-stopped

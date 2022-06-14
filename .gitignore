@@ -46,3 +46,4 @@ api/npm-debug.log*
 api/yarn-debug.log*
 api/yarn-error.log*
 
+db/data
