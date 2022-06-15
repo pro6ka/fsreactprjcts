@@ -7,7 +7,6 @@ exports.index = function (req, res) {
 
 exports.create = function (req, res) {
     let newShark = new Shark(req.body);
-    console.log(req.body);
     newShark.save(function (err) {
         if (err) {
             res.status(400).send('Unable to save shark to database');
