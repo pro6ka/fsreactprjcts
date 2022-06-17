@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         trim: true,
         unique: 'Email already exists',
-        match: [/.+\@.+\..+/, 'Please fill a valid email address'],
+        match: [/.+@.+\..+/, 'Please fill a valid email address'],
         required: 'Email is required',
     },
     created: {
@@ -59,7 +59,7 @@ UserSchema.methods = {
     }
 };
 
-UserSchema.path('hashed_password').validate(function (v) {
+UserSchema.path('hashed_password').validate(function () {
     if (this._password && this._password.length < 6) {
         this.invalidate('password', 'Password must be at least 6 characters.');
     }

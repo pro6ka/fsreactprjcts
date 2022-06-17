@@ -25,9 +25,11 @@ const list = async (req, res) => {
     }
 };
 
-const userByID = async (req, res, next, id) => {
+const userByID = async (req, res, next, reqId) => {
+    const id = reqId.replace('s:', '');
     try {
         let user = await User.findById(id);
+        console.log(user);
         if (! user) {
             return res.status('400').json({
                 error: 'User not found'
@@ -51,7 +53,7 @@ const read = (req, res) => {
 const update = async (req, res, next) => {
     try {
         let user = req.profile;
-        user = extend(user, req,body);
+        user = extend(user, req.body);
         user.update = Date.now();
         await user.save();
         user.hashed_password = undefined;

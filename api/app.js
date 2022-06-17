@@ -14,7 +14,7 @@ import helmet from 'helmet';
 import winston from 'winston';
 
 import userRoutes from './routes/user.routes.js';
-import authRouter from './routes/auth.routes.js';
+import authRoutes from './routes/auth.routes.js';
 
 const consoleTransport = new winston.transports.Console();
 const winstonOptions = {
@@ -40,6 +40,7 @@ app.use(cors());
 app.use(express.static(viewPath));
 
 app.use('/', userRoutes);
+app.use('/', authRoutes);
 // app.use('/sharks', sharks);
 
 app.use((err, req, res, next) => {
