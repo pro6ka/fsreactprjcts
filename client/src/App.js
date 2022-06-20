@@ -1,18 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
+import MainRouter from './MainRouter.js';
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme.js';
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} alt="logo" className="App-logo" />
-                <p>Edit <code>src/App.js</code> and save to reload</p>
-                <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer" className="App-link">
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <BrowserRouter>
+            <ThemeProvider theme={theme}>
+                <MainRouter></MainRouter>
+            </ThemeProvider>
+        </BrowserRouter>
     );
 }
 
