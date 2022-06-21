@@ -5,6 +5,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 import unicornbikeImg from './../assets/images/unicornbike.jpg';
 
 const PREFIX = 'Home';
@@ -42,6 +43,7 @@ export default function Home() {
         <StyledCard className={classes.card}>
             <Typography variant="h6" className={classes.title}>
                 Home Page
+                <Link to="/users">Users</Link>
             </Typography>
             <CardMedia className={classes.media} image={unicornbikeImg} title="Unicorn Bicycle"></CardMedia>
             <CardContent>
