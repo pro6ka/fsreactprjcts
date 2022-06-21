@@ -43,8 +43,9 @@ export default function Home() {
         <StyledCard className={classes.card}>
             <Typography variant="h6" className={classes.title}>
                 Home Page
-                <Link to="/users">Users</Link>
             </Typography>
+            <Link to="/users">Users</Link>
+            <Link to="/signup">Sign Up</Link>
             <CardMedia className={classes.media} image={unicornbikeImg} title="Unicorn Bicycle"></CardMedia>
             <CardContent>
                 <Typography variant="body2" component="p">
